@@ -1,0 +1,5 @@
+
+
+var Seat = function () {
+    // body...
+}
