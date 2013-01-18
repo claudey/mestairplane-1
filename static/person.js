@@ -10,9 +10,10 @@ var Person = function ( config ) {
 
 
 Person.prototype.toJSON = function() {
-    return {
-        name: this.name,
-        age: this.age,
-        gender: this.gender
-    }
+    console.log('called Person toJSON');
+    // return {
+    //     name: this.name,
+    //     age: this.age,
+    //     gender: this.gender
+    // }
 };
