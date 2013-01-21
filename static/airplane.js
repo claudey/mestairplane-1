@@ -9,7 +9,7 @@ var Airplane = function ( config ) {
     this.seatsPerRow        = config.PER_ROW    || 4;
     this.seatsOnLastRow     = config.LAST_ROW   || 2;
 
-    this.el = '';
+    this.el = $('<div>', { class: 'airplane' });
 
     // an array object to hold all the rows of seats in this aero plane
     this.rows = new Array();
@@ -28,6 +28,19 @@ var Airplane = function ( config ) {
 
 Airplane.prototype.render = function() {
     return this;
+};
+
+Airplane.prototype.addRow = function( row, index ) {
+    try {
+        if( typeof index !== 'number' || index >= this.el.children().length )
+            throw new TypeError('index exceeds length of DOM nodes in this node')
+        
+        if( index === undefined)
+            this.el.append(row.render().el);
+        
+        else (row.render().el).insertBefore(this.el.children().eq(index));
+
+    } catch( e ) { console.log(e); }
 };
 
 

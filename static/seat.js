@@ -11,7 +11,7 @@ var Seat = function ( config ) {
     this.occupant = config.occupant;
     this.occupied = !! this.occupant;
     
-    this.el       = '';
+    this.el       = $();
 }
 
 

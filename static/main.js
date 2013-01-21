@@ -16,4 +16,10 @@ $( function () {
     var flightIn    = new Airplane();
     $('#plane-in').html( flightIn.render().el );
 
+
+
+    var el  = $('<div>');
+    $('<div>', { class: 'div' }).appendTo(el);
+    console.log(el);
+
 })
