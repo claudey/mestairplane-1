@@ -4,25 +4,27 @@ var Row = function ( config ) {
 
     var config = config || {};
 
-    console.log(config);
-    
     this.number         = config.number;
     this.numberOfSeats  = config.seats;
     this.seats          = new Array();
+    this.el             = '';
 
 
-    for ( var i = 0; i < this.numberOfSeats; ++i ) {
+    for ( var i = 1; i <= this.numberOfSeats; ++i ) {
         this.seats.push(
-            // create a new seat
-            new Seat({ row: this.number, column: i + 1 })
+            new Seat({ row: this.number, column: i })
         );
     }
 
 }
 
 
+Row.prototype.render = function() {
+    return this;
+};
+
+
 Row.prototype.toJSON = function() {
-    console.log('called Row toJSON');
     var seatsJSON = [];
     for ( var i = 0; i < this.numberOfSeats; ++i ) seatsJSON.push(this.seats[i].toJSON());
 

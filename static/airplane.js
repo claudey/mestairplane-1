@@ -9,20 +9,26 @@ var Airplane = function ( config ) {
     this.seatsPerRow        = config.PER_ROW    || 4;
     this.seatsOnLastRow     = config.LAST_ROW   || 2;
 
+    this.el = '';
 
     // an array object to hold all the rows of seats in this aero plane
     this.rows = new Array();
 
 
-    for ( var i=0; i < this.totalRows; i++ ) {
+    for ( var i=1; i <= this.totalRows; ++i ) {
         this.rows.push(
             new Row({
                 number:  i,
-                seats: ( i === this.totalRows - 1 ) ? this.seatsOnLastRow : this.seatsPerRow
+                seats: ( i === this.totalRows ) ? this.seatsOnLastRow : this.seatsPerRow
             })
         )
     }
 }
+
+
+Airplane.prototype.render = function() {
+    return this;
+};
 
 
 Airplane.prototype.toJSON = function() {

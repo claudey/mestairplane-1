@@ -19,7 +19,7 @@ class AirplaneTester(unittest.TestCase):
 	def tearDownClass(self):
 		self.browser.close()
 	
-	def tst_ids(self):
+	def test_ids(self):
 		for airplane_type in ('Out','Return'):
 			for row in range(1,19):
 				for seat in ('a','b','c','d'):
@@ -31,7 +31,7 @@ class AirplaneTester(unittest.TestCase):
 					except NoSuchElementException:
 						self.fail("Couldn't find seat with id %s" % seat_id)
 
-	def tst_json(self):
+	def test_json(self):
 		for airplane_type in ('Out','Return'):
 			json = self.browser.execute_script('return airplane%s.tojson();' % airplane_type)
     		for row in range(0,18):
@@ -47,7 +47,7 @@ class AirplaneTester(unittest.TestCase):
 		alert.send_keys(passenger)
 		alert.accept()
 
-	def tst_seating(self):
+	def test_seating(self):
 		for airplane_type in ('Out','Return'):	
 			for seat, passenger in (('1a','Ben'),('2b','Rowdy')):
 				self.put_passenger_in_seat(passenger,'%s%s' % (seat,airplane_type))
