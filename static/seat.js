@@ -15,13 +15,42 @@ var Seat = function ( config ) {
 
     this.setClass();
     this.setPosition();
+
+
+    this.el.on('click', this.book);
+
 }
+
+
+Seat.prototype.book = function() {
+    if( this.occupied ) {
+        alert('Sorry. This seat is occupied by ' + this.occupant.name);
+        return;
+    }
+
+    var passenger = function () {
+        try {
+            var name = prompt('What\'s the name of the passenger?')
+            if ( name ) {
+                var age = parseInt(prompt('How old is the passenger?'))
+                if ( age ) {
+                    var gender = prompt('What\'s her/his gender?')
+                }
+            }
+
+            throw new TypeError('So you supplied some wrong information. Can you figure it out?');
+
+        } catch (e) {
+            console.log(e.message);
+        }
+
+    }();
+};
 
 
 Seat.prototype.render = function() {
     return this;
 };
-
 
 Seat.prototype.occupy = function( occupant ) {
     if ( !(occupant instanceof Person) ) 

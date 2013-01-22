@@ -1,7 +1,32 @@
+html, body, div {
+    padding: 0; margin: 0;
+}
+
 html {
     font-family: georgia, serif;
-    padding: 0; margin: 0;
     font-size: 1.3em;
+}
+
+.container {
+    width: 70%;
+    margin: 20px auto;
+}
+
+.seatmaps {
+    width: 100%;
+    padding: 2%;
+    overflow: auto;
+}
+
+.seatmap {
+    width: 45%;
+    padding: 1%;
+    float: left;
+}
+
+
+div[id=seatmap_out] {
+    margin-right: 1.5%;
 }
 
 .airplane {
@@ -16,26 +41,44 @@ html {
 
 .seat {
     /* styles that are common to all seats */
+    width: 30px;
+    height: 30px;
+    margin: 5px 1px;
     border: 1px solid #ccc;
-    border-radius: 5px;
 
-    width: 5px;
     float: left;
+}
+
+.seat:hover {
+    cursor: pointer;
+    border: 1px solid #222;
+}
+
+.first-class:hover {
+    background: #ffa400;
+}
+
+.economy-class:hover {
+    background: #d5f800;
+}
+
+.seat .occupied {
+    cursor: default;
 }
 
 .first-class {
     /* if seat belongs in the first class compartment */
-    background: green;
+    background: #ffc300;
 
 }
 
 .economy-class {
     /* if seat belongs in the economy class compartment */
-    background: yellow;
+    background: #fff973;
 }
 
 .aisle-right {
-    margin: 50px;
+    margin-right: 5px;
 }
 
 .aisle-left {
