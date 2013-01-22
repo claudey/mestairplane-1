@@ -8,18 +8,19 @@ $( function () {
         id: 'plane-out'
     }).appendTo( $('#seatmap_out') );
 
+    $('<div>', {
+        class: 'plane-in',
+        id: 'plane-in'
+    }).appendTo( $('#seatmap_return') );
+
 
     var flightOut   = new Airplane();
+    // console.log( flightOut.toJSON());
+    // console.log(flightOut.render().el);
     $('#plane-out').html( flightOut.render().el );
 
 
     var flightIn    = new Airplane();
     $('#plane-in').html( flightIn.render().el );
-
-
-
-    var el  = $('<div>');
-    $('<div>', { class: 'div' }).appendTo(el);
-    console.log(el);
 
 })

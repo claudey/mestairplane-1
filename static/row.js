@@ -20,22 +20,19 @@ var Row = function ( config ) {
 
 
 Row.prototype.render = function() {
+    for (var i = 0, _len = this.seats.length; i < _len; ++i) {
+        this.el.append(this.seats[i].render().el);
+    }
+
     return this;
 };
 
 
-Row.prototype.addSeat = function( seat, index ) {
-    try {
-        if( typeof index !== 'number' || index >= this.el.children().length )
-            throw new TypeError('index exceeds length of DOM nodes in this node')
-        
-        if( index === undefined)
-            this.el.append(seat.render().el);
-        
-        else (seat.render().el).insertBefore(this.el.children().eq(index));
-
-    } catch( e ) { console.log(e); }
+Row.prototype.addSeat = function( seat ) {
+    if( !(seat instanceof Seat) ) throw new TypeError('inconsistent type. you can only add SEATS. nothing more')
+    this.seats.push( seat );
 };
+
 
 Row.prototype.toJSON = function() {
     var seatsJSON = [];

@@ -3,7 +3,6 @@ var Airplane = function ( config ) {
     var config = config || {}
     
     this.totalSeats         = config.SEATS      || 70;
-    this.totalRows          = config.ROWS       || 18;
     this.firstClassRows     = config.FIRST      || 5;
     this.economyClassRows   = config.ECONOMY    || 13;
     this.seatsPerRow        = config.PER_ROW    || 4;
@@ -14,12 +13,11 @@ var Airplane = function ( config ) {
     // an array object to hold all the rows of seats in this aero plane
     this.rows = new Array();
 
-
-    for ( var i=1; i <= this.totalRows; ++i ) {
+    for ( var i=1, _len = (config.ROWS || 18); i <= _len; ++i ) {
         this.rows.push(
             new Row({
                 number:  i,
-                seats: ( i === this.totalRows ) ? this.seatsOnLastRow : this.seatsPerRow
+                seats: ( i === _len ) ? this.seatsOnLastRow : this.seatsPerRow
             })
         )
     }
@@ -27,25 +25,21 @@ var Airplane = function ( config ) {
 
 
 Airplane.prototype.render = function() {
+    console.log( this.rows.length );
+    for (var i = 0, _len = this.rows.length; i < _len; ++i ) {
+        this.el.append(this.rows[i].render().el);
+    }
+
     return this;
 };
 
-Airplane.prototype.addRow = function( row, index ) {
-    try {
-        if( typeof index !== 'number' || index >= this.el.children().length )
-            throw new TypeError('index exceeds length of DOM nodes in this node')
-        
-        if( index === undefined)
-            this.el.append(row.render().el);
-        
-        else (row.render().el).insertBefore(this.el.children().eq(index));
-
-    } catch( e ) { console.log(e); }
+Airplane.prototype.addRow = function( row ) {
+    if (!(row instanceof Row)) throw new TypeError('inconsistent type. did you say you wanted to add a row, or what?')
+    this.rows.push(row);
 };
 
 
 Airplane.prototype.toJSON = function() {
-    console.log('called Airplane toJSON');
     var rowsJSON = [];
     for ( var i = 0; i < this.totalRows; ++i )  {
         rowsJSON.push( this.rows[i].toJSON() );

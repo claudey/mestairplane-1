@@ -1,0 +1,43 @@
+html {
+    font-family: georgia, serif;
+    padding: 0; margin: 0;
+    font-size: 1.3em;
+}
+
+.airplane {
+
+}
+
+.row {
+    border: 0 !important;
+    padding: 0 5px;
+    overflow: auto;
+}
+
+.seat {
+    /* styles that are common to all seats */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    width: 5px;
+    float: left;
+}
+
+.first-class {
+    /* if seat belongs in the first class compartment */
+    background: green;
+
+}
+
+.economy-class {
+    /* if seat belongs in the economy class compartment */
+    background: yellow;
+}
+
+.aisle-right {
+    margin: 50px;
+}
+
+.aisle-left {
+    margin-left: 5px;
+}
