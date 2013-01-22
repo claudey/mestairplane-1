@@ -24,35 +24,37 @@ var Airplane = function ( config ) {
 }
 
 
-Airplane.prototype.render = function() {
-    for (var i = 0, _len = this.rows.length; i < _len; ++i ) {
-        this.el.append(this.rows[i].render().el);
+Airplane.prototype = {
+    render : function() {
+        for (var i = 0, _len = this.rows.length; i < _len; ++i ) {
+            this.el.append(this.rows[i].render().el);
+        }
+
+        return this;
+    },
+
+    addRow : function( row ) {
+        if (!(row instanceof Row)) throw new TypeError('inconsistent type. did you say you wanted to add a row, or what?')
+        this.rows.push(row);
+    },
+
+
+    toJSON : function() {
+        var rowsJSON = [];
+        for ( var i = 0; i < this.rows.length; ++i )  {
+            rowsJSON.push( this.rows[i].toJSON() );
+        }
+
+        // return all the rows in this aero plane
+        return {
+            seats           : this.totalSeats,
+            rows            : this.totalRows,
+            firstClass      : this.firstClassRows,
+            economyClass    : this.economyClassRows,
+            perRow          : this.seatsPerRow,
+            lastRow         : this.seatsOnLastRow,
+            rows            : rowsJSON
+        }
+
     }
-
-    return this;
-};
-
-Airplane.prototype.addRow = function( row ) {
-    if (!(row instanceof Row)) throw new TypeError('inconsistent type. did you say you wanted to add a row, or what?')
-    this.rows.push(row);
-};
-
-
-Airplane.prototype.toJSON = function() {
-    var rowsJSON = [];
-    for ( var i = 0; i < this.rows.length; ++i )  {
-        rowsJSON.push( this.rows[i].toJSON() );
-    }
-
-    // return all the rows in this aero plane
-    return {
-        seats           : this.totalSeats,
-        rows            : this.totalRows,
-        firstClass      : this.firstClassRows,
-        economyClass    : this.economyClassRows,
-        perRow          : this.seatsPerRow,
-        lastRow         : this.seatsOnLastRow,
-        rows            : rowsJSON
-    }
-
-};
+}

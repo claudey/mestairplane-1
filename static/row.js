@@ -21,36 +21,38 @@ var Row = function ( config ) {
 }
 
 
-Row.prototype.render = function() {
-    for (var i = 0, _len = this.seats.length; i < _len; ++i) {
-        this.el.append(this.seats[i].render().el);
-    }
-
-    return this;
-};
-
-
-Row.prototype.addSeat = function( seat ) {
-    if( !(seat instanceof Seat) ) throw new TypeError('inconsistent type. you can only add SEATS. nothing more')
-    this.seats.push( seat );
-};
-
-Row.prototype.setClass = function() {
-        if ( this.number >= 1 && this.number <= 5 ) {
-            this.el.addClass('first-class');
-        } else {
-            this.el.addClass('economy-class');
+Row.prototype = {
+    render : function() {
+        for (var i = 0, _len = this.seats.length; i < _len; ++i) {
+            this.el.append(this.seats[i].render().el);
         }
-};
+
+        return this;
+    },
 
 
-Row.prototype.toJSON = function() {
-    var seatsJSON = [];
-    for ( var i = 0; i < this.numberOfSeats; ++i ) seatsJSON.push(this.seats[i].toJSON());
+    addSeat : function( seat ) {
+        if( !(seat instanceof Seat) ) throw new TypeError('inconsistent type. you can only add SEATS. nothing more')
+        this.seats.push( seat );
+    },
 
-    return {
-        number: this.number,
-        numberOfSeats: this.numberOfSeats,
-        seats: seatsJSON
+    setClass : function() {
+            if ( this.number >= 1 && this.number <= 5 ) {
+                this.el.addClass('first-class');
+            } else {
+                this.el.addClass('economy-class');
+            }
+    },
+
+
+    toJSON : function() {
+        var seatsJSON = [];
+        for ( var i = 0; i < this.numberOfSeats; ++i ) seatsJSON.push(this.seats[i].toJSON());
+
+        return {
+            number: this.number,
+            numberOfSeats: this.numberOfSeats,
+            seats: seatsJSON
+        }
     }
-};
+}
