@@ -54,27 +54,37 @@ div[id=seatmap_out] {
     border: 1px solid #222;
 }
 
-.first-class:hover {
+.first-class > div:hover {
     background: #ffa400;
 }
 
-.economy-class:hover {
+.economy-class > div:hover {
     background: #d5f800;
 }
 
-.seat .occupied {
+.seat .booked {
     cursor: default;
 }
 
-.first-class {
+.first-class > div {
     /* if seat belongs in the first class compartment */
     background: #ffc300;
 
 }
 
-.economy-class {
+.economy-class > div {
     /* if seat belongs in the economy class compartment */
     background: #fff973;
+}
+
+.first-class > .booked, .first-class > .booked:hover {
+    background: black;
+    cursor: default;
+}
+
+.economy-class > .booked, .economy-class > .booked:hover {
+    background: #333;
+    cursor: default;
 }
 
 .aisle-right {

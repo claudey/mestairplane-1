@@ -16,6 +16,8 @@ var Row = function ( config ) {
         );
     }
 
+    this.setClass();
+
 }
 
 
@@ -31,6 +33,14 @@ Row.prototype.render = function() {
 Row.prototype.addSeat = function( seat ) {
     if( !(seat instanceof Seat) ) throw new TypeError('inconsistent type. you can only add SEATS. nothing more')
     this.seats.push( seat );
+};
+
+Row.prototype.setClass = function() {
+        if ( this.number >= 1 && this.number <= 5 ) {
+            this.el.addClass('first-class');
+        } else {
+            this.el.addClass('economy-class');
+        }
 };
 
 

@@ -15,12 +15,9 @@ $( function () {
 
 
     var flightOut   = new Airplane();
-    // console.log( flightOut.toJSON());
-    // console.log(flightOut.render().el);
     $('#plane-out').html( flightOut.render().el );
 
 
     var flightIn    = new Airplane();
     $('#plane-in').html( flightIn.render().el );
-
 })

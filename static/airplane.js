@@ -25,7 +25,6 @@ var Airplane = function ( config ) {
 
 
 Airplane.prototype.render = function() {
-    console.log( this.rows.length );
     for (var i = 0, _len = this.rows.length; i < _len; ++i ) {
         this.el.append(this.rows[i].render().el);
     }
@@ -41,7 +40,7 @@ Airplane.prototype.addRow = function( row ) {
 
 Airplane.prototype.toJSON = function() {
     var rowsJSON = [];
-    for ( var i = 0; i < this.totalRows; ++i )  {
+    for ( var i = 0; i < this.rows.length; ++i )  {
         rowsJSON.push( this.rows[i].toJSON() );
     }
 

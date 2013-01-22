@@ -13,76 +13,61 @@ var Seat = function ( config ) {
     
     this.el       = $('<div>', { class: 'seat' });
 
-    this.setClass();
     this.setPosition();
 
 
-    this.el.on('click', this.book);
+    this.el.on('click', this.book.apply(this));
 
 }
 
 
-Seat.prototype.book = function() {
-    if( this.occupied ) {
-        alert('Sorry. This seat is occupied by ' + this.occupant.name);
-        return;
-    }
-
-    var passenger = function () {
-        try {
-            var name = prompt('What\'s the name of the passenger?')
-            if ( name ) {
-                var age = parseInt(prompt('How old is the passenger?'))
-                if ( age ) {
-                    var gender = prompt('What\'s her/his gender?')
-                }
+Seat.prototype = {
+    book: function() {
+        var $this = this;
+        return function () {
+            if ( $this.occupied ) {
+                alert('Sorry. This seat has been booked for ' + $this.occupant.name);
+                return;
             }
 
-            throw new TypeError('So you supplied some wrong information. Can you figure it out?');
+            var passenger = function () {
+                try {
+                    var name = prompt('Name');
+                    var age = parseInt(prompt('Age'));
+                    var gender = prompt('Gender');
 
-        } catch (e) {
-            console.log(e.message);
+                    $this.occupant = new Person({ name: name, age: age, gender: gender });
+                    $this.occupied = true;
+
+                    $this.el.addClass('booked');
+
+                } catch(e) {
+                    console.log( e.message );
+                }
+            }();
+        };
+    },
+
+    render : function() {
+        return this;
+    },
+
+    setPosition : function() {
+        if ( this.column === 2 ) {
+            this.el.removeClass('aisle-right').addClass('aisle-right');
+        } else if (this.column === 3 ) {
+            this.el.removeClass('aisle-left').addClass('aisle-left');
         }
-
-    }();
-};
+    },
 
 
-Seat.prototype.render = function() {
-    return this;
-};
-
-Seat.prototype.occupy = function( occupant ) {
-    if ( !(occupant instanceof Person) ) 
-        throw new TypeError('Human beings only')
-
-    this.occupant = occupant;
-    this.el.toggleClass('occupied');
-};
-
-Seat.prototype.setClass = function() {
-    console.log('setting class');
-    if ( this.row >= 1 && this.row <= 5 ) {
-        this.el.addClass('first-class');
-    } else {
-        this.el.addClass('economy-class');
+    toJSON : function() {
+        return {
+            row     : this.row,
+            column  : this.column,
+            occupant  : ( this.occupant) ? this.occupant.toJSON() : undefined
+        }
     }
+
 };
 
-
-Seat.prototype.setPosition = function() {
-    if ( this.column === 2 ) {
-        this.el.removeClass('aisle-right').addClass('aisle-right');
-    } else if (this.column === 3 ) {
-        this.el.removeClass('aisle-left').addClass('aisle-left');
-    }
-};
-
-
-Seat.prototype.toJSON = function() {
-    return {
-        row     : this.row,
-        column  : this.column,
-        occupant  : ( this.occupant) ? this.occupant.toJSON() : undefined
-    }
-};
